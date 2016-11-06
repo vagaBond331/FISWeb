@@ -1,0 +1,102 @@
+﻿@model FISWeb.Models.AdminViewModels
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content">
+    <div class="monthly-grid">
+        <div class="panel panel-widget">
+            <div class="panel-title">Monthly Status Report</div>
+            <div>
+                <div class="contain">
+                    <div class="gantt">
+                        <table border="1">
+                            <tr>
+                                <th rowspan="2">
+                                    Employee
+                                </th>
+                                <th colspan="@Model.numDays">
+                                    November
+                                </th>
+                            </tr>
+
+                            <tr>
+                                @for (int i = 0; i < Model.numDays; i++)
+                                {
+                                    <th>@(i+1)</th>
+                                }
+                            </tr>
+
+                            @for (int i = 0; i < Model.empListName.Count; i++)
+                            {
+                            <tr>
+                                <td>
+                                    <span>@Model.empListName[i]</span>
+                                </td>
+                                @for (int j = 1; j < Model.numDays + 1; j++)
+                                {
+                                    <td>
+                                        <span>@Model.monthAttend[i][j]</span>
+                                    </td>
+                                }
+                            </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-top">
+        <div class="col-md-6 content-top-lft">
+            <div class="panel panel-widget">
+                <div class="panel-title">Device status</div>
+                <div>
+                    <div class="contain">
+                        <div class="gantt">
+                            <table border="1">
+                                <tr>
+                                    <th rowspan="2">
+                                        Employee
+                                    </th>
+                                    <th colspan="@Model.numDays">
+                                        November
+                                    </th>
+                                </tr>
+
+                                <tr>
+                                    @for (int i = 0; i < Model.numDays; i++)
+                                    {
+                                        <th>@(i + 1)</th>
+                                    }
+                                </tr>
+
+                                @for (int i = 0; i < Model.empListName.Count; i++)
+                                {
+                                    <tr>
+                                        <td>
+                                            <span>@Model.empListName[i]</span>
+                                        </td>
+                                        @for (int j = 1; j < Model.numDays + 1; j++)
+                                        {
+                                            <td>
+                                                <span>@Model.monthAttend[i][j]</span>
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 content-top-2">
+            <div class="panel panel-widget">
+                <div class="panel-title">More function here</div>
+                <!-- TODO:Add more -->
+            </div>
+        </div>
+    </div>
+</div>
