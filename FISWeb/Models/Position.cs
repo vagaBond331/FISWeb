@@ -16,6 +16,7 @@ namespace FISWeb.Models
     {
         public string pos_id { get; set; }
         public string pos_displayed { get; set; }
+        public byte pos_type { get; set; }
         public string created_by { get; set; }
         public Nullable<System.DateTime> created_date { get; set; }
     }

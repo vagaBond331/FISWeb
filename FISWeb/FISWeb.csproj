@@ -203,12 +203,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\CreateViewModels.cs" />
-    <Compile Include="Models\AdminViewModels.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Attent.cs">
       <DependentUpon>FISdb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CreateViewModels.cs" />
+    <Compile Include="Models\AdminViewModels.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Device.cs">
       <DependentUpon>FISdb.tt</DependentUpon>
     </Compile>
@@ -290,13 +290,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Models\FISdb.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>FISdb.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\FISdb.edmx.diagram">
-      <DependentUpon>FISdb.edmx</DependentUpon>
-    </Content>
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff" />
@@ -305,6 +298,13 @@
     <Content Include="fonts\fontomas-webfont.ttf" />
     <Content Include="fonts\fontomas-webfont.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <EntityDeploy Include="Models\FISdb.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>FISdb.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\FISdb.edmx.diagram">
+      <DependentUpon>FISdb.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

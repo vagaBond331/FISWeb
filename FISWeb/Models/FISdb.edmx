@@ -31,6 +31,7 @@
           </Key>
           <Property Name="pos_id" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="pos_displayed" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="pos_type" Type="tinyint" Nullable="false" />
           <Property Name="created_by" Type="nchar" MaxLength="10" />
           <Property Name="created_date" Type="datetime" />
         </EntityType>
@@ -102,6 +103,7 @@
           </Key>
           <Property Name="pos_id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="pos_displayed" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pos_type" Type="Byte" Nullable="false" />
           <Property Name="created_by" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="created_date" Type="DateTime" Precision="3" />
         </EntityType>
@@ -175,6 +177,7 @@
               <MappingFragment StoreEntitySet="Position">
                 <ScalarProperty Name="pos_id" ColumnName="pos_id" />
                 <ScalarProperty Name="pos_displayed" ColumnName="pos_displayed" />
+                <ScalarProperty Name="pos_type" ColumnName="pos_type" />
                 <ScalarProperty Name="created_by" ColumnName="created_by" />
                 <ScalarProperty Name="created_date" ColumnName="created_date" />
               </MappingFragment>
