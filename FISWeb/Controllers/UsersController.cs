@@ -39,7 +39,7 @@ namespace FISWeb.Controllers
             }
 
             if (ck == false) return RedirectToAction("Login", "Users");
-            else return RedirectToAction("Index", "Admin", new { message = us.user_id });
+            else return RedirectToAction("Index", "Admin", new { user_id = us.user_id });
         }
 
         // GET: Users

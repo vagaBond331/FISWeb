@@ -12,11 +12,10 @@ namespace FISWeb.Controllers
         private FISEntities db = new FISEntities();
 
         // GET: Admin
-        public ActionResult Index(String message)
+        public ActionResult Index(String user_id)
         {
-            User user = db.Users.Find(message);
-            String username = user.username;
             AdminViewModels model = new AdminViewModels();
+            model.logUser = db.Users.Find(user_id);
             foreach (var item in db.Users)
             {
                 if(item.user_type != 1)

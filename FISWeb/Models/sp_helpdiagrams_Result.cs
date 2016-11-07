@@ -10,14 +10,13 @@
 namespace FISWeb.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Position
+    public partial class sp_helpdiagrams_Result
     {
-        public string pos_id { get; set; }
-        public string pos_displayed { get; set; }
-        public int pos_type { get; set; }
-        public string created_by { get; set; }
-        public Nullable<System.DateTime> created_date { get; set; }
+        public string Database { get; set; }
+        public string Name { get; set; }
+        public int ID { get; set; }
+        public string Owner { get; set; }
+        public int OwnerID { get; set; }
     }
 }

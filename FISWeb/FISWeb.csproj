@@ -231,6 +231,12 @@
     <Compile Include="Models\Position.cs">
       <DependentUpon>FISdb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>FISdb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>FISdb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>FISdb.tt</DependentUpon>
     </Compile>
@@ -338,6 +344,7 @@
     <Content Include="Views\Users\Login.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Create\CreateEmployee.cshtml" />
+    <Content Include="Views\Create\CreateDevice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

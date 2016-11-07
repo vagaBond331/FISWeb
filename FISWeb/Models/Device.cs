@@ -17,6 +17,8 @@ namespace FISWeb.Models
         public string device_id { get; set; }
         public string description { get; set; }
         public string device_name { get; set; }
-        public Nullable<byte> device_status { get; set; }
+        public Nullable<int> device_status { get; set; }
+        public string created_by { get; set; }
+        public Nullable<System.DateTime> created_date { get; set; }
     }
 }

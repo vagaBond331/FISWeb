@@ -18,7 +18,7 @@ namespace FISWeb.Models
         public string attent_user { get; set; }
         public System.DateTime attent_time { get; set; }
         public string attent_device { get; set; }
-        public byte attent_type { get; set; }
+        public int attent_type { get; set; }
         public string description { get; set; }
     }
 }
