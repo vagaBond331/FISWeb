@@ -21,8 +21,6 @@ namespace FISWeb.Controllers
 
         public ActionResult CheckLogin(LoginUser logUser)
         {
-            String username = logUser.Username;
-            String password = logUser.Password;
             List<User> list = db.Users.ToList();
 
             Boolean ck = false;
@@ -30,7 +28,7 @@ namespace FISWeb.Controllers
 
             foreach (var item in list)
             {
-                if(item.username.Equals(username) && item.password.Equals(password))
+                if(item.username.Equals(logUser.Username) && item.password.Equals(logUser.Password))
                 {
                     ck = true;
                     us = item;
@@ -39,117 +37,25 @@ namespace FISWeb.Controllers
             }
 
             if (ck == false) return RedirectToAction("Login", "Users");
-            else return RedirectToAction("Index", "Admin", new { logUserID = us.user_id });
+            else
+            {
+                Session["logUserID"] = us.user_id;
+                Session["logUserName"] = us.first_name + " " + us.last_name;
+                return RedirectToAction("Index", "Admin");
+            }
+        }
+
+        public ActionResult Logout()
+        {
+            Session["logUserID"] = "";
+            Session["logUserName"] = "";
+            return RedirectToAction("Login", "Users");
         }
 
         // GET: Users
         public ActionResult Index()
         {
             return View(db.Users.ToList());
-        }
-
-        // GET: Users/Details/5
-        public ActionResult Details(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
-
-        // GET: Users/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Users/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "user_id,username,password,status,user_type,first_name,last_name,mail,DOB,address,pos_id,department,phone,created_by,created_date")] User user)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Users.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(user);
-        }
-
-        // GET: Users/Edit/5
-        public ActionResult Edit(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
-
-        // POST: Users/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "user_id,username,password,status,user_type,first_name,last_name,mail,DOB,address,pos_id,department,phone,created_by,created_date")] User user)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(user);
-        }
-
-        // GET: Users/Delete/5
-        public ActionResult Delete(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
-
-        // POST: Users/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            User user = db.Users.Find(id);
-            db.Users.Remove(user);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }
