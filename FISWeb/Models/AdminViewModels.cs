@@ -7,10 +7,15 @@ namespace FISWeb.Models
     public class AdminViewModels
     {
         public User logUser { get; set; }
+
         public List<string> empListName { get; set; }
+
         public List<string[]> monthAttend { get; set; }
+
         public int numDays { get; set; }
+
         public List<Device> listDevice { get; set; }
+
         public AdminViewModels()
         {
             logUser = new User();

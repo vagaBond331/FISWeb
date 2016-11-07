@@ -11,7 +11,8 @@ namespace FISWeb.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class User
     {
         public string user_id { get; set; }
@@ -29,5 +30,21 @@ namespace FISWeb.Models
         public string phone { get; set; }
         public string created_by { get; set; }
         public Nullable<System.DateTime> created_date { get; set; }
+    }
+
+    public class LoginUser
+    {
+        [Required]
+        [Display(Name = "Username")]
+        [EmailAddress]
+        public string Username { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        [Display(Name = "Remember me?")]
+        public bool RememberMe { get; set; }
     }
 }

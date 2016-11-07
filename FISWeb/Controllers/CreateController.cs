@@ -38,6 +38,11 @@ namespace FISWeb.Controllers
             return View();
         }
 
+        public ActionResult CreateDevice()
+        {
+            return View();
+        }
+
         public ActionResult AddNewEmp(CreateEmployeeModel model)
         {
             Position pos = db.Positions.Find(model.posID);
@@ -71,7 +76,23 @@ namespace FISWeb.Controllers
 
             db.Users.Add(newUser);
             db.SaveChanges();
-            return View();
+            return RedirectToAction("Index", "Admin");
+        }
+        public ActionResult AddNewDevice(CreateDeviceModel model)
+        {
+            Device newDevice = new Device();
+
+            List<Device> listDevice = db.Devices.ToList();
+            int newID = int.Parse(listDevice.Last().device_id.Substring(1)) + 1;
+            
+            newDevice.device_id = "P" + newID;
+            newDevice.device_name = model.device_name;
+            newDevice.description = model.description;
+            newDevice.device_status = 2;
+            
+            db.Devices.Add(newDevice);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Admin");
         }
     }
 }

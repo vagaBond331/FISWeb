@@ -51,23 +51,11 @@ namespace FISWeb.Models
     public class CreateDeviceModel
     {
         [Required]
-        [Display(Name = "Device ID")]
-        public string device_id { get; set; }
-
-        [Required]
         [Display(Name = "Device name")]
         public string device_name { get; set; }
 
         [Required]
-        [Display(Name = "Status")]
-        public Nullable<int> device_status { get; set; }
-
-        [Required]
         [Display(Name = "Description")]
         public string description { get; set; }
-
-        public string created_by { get; set; }
-
-        public Nullable<System.DateTime> created_date { get; set; }
     }
 }
