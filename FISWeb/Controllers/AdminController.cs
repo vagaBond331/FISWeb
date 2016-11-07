@@ -12,10 +12,10 @@ namespace FISWeb.Controllers
         private FISEntities db = new FISEntities();
 
         // GET: Admin
-        public ActionResult Index(String user_id)
+        public ActionResult Index(String logUserID)
         {
             AdminViewModels model = new AdminViewModels();
-            model.logUser = db.Users.Find(user_id);
+            model.logUser = db.Users.Find(logUserID);
             foreach (var item in db.Users)
             {
                 if(item.user_type != 1)
@@ -36,7 +36,7 @@ namespace FISWeb.Controllers
                 model.listAttent.Add(at);
             }
 
-            ViewBag.logUserID = user_id;
+            ViewBag.logUserID = logUserID;
 
             return View(model);
         }
