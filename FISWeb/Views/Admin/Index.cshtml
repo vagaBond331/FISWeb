@@ -23,23 +23,23 @@
                             <tr>
                                 @for (int i = 0; i < Model.numDays; i++)
                                 {
-                                    <th>@(i+1)</th>
+                                    <th>@(i + 1)</th>
                                 }
                             </tr>
 
                             @for (int i = 0; i < Model.empListName.Count; i++)
                             {
-                            <tr>
-                                <td>
-                                    <span>@Model.empListName[i]</span>
-                                </td>
-                                @for (int j = 1; j < Model.numDays + 1; j++)
-                                {
+                                <tr>
                                     <td>
-                                        <span>@Model.monthAttend[i][j]</span>
+                                        <span>@Model.empListName[i]</span>
                                     </td>
-                                }
-                            </tr>
+                                    @for (int j = 1; j < Model.numDays + 1; j++)
+                                    {
+                                        <td>
+                                            <span>@Model.monthAttend[i][j]</span>
+                                        </td>
+                                    }
+                                </tr>
                             }
                         </table>
                     </div>
@@ -52,15 +52,30 @@
             <div class="panel panel-widget">
                 <div class="panel-title">Device status</div>
                 <div>
-                    
+                    @foreach (var item in Model.listDevice)
+                    {
+                        if (item.device_status == 1)
+                        {
+                            <p>@item.device_name is <a href="@Url.Action("activeDevice", "Admin", new {@item_id = item.device_id})">Active</a></p>
+                        }
+                        else
+                        {
+                            <p>@item.device_name is <a href="@Url.Action("activeDevice", "Admin", new {@item_id = item.device_id})">Deactive</a></p>
+                        }
+                    }
                 </div>
             </div>
         </div>
 
         <div class="col-md-6 content-top-2">
             <div class="panel panel-widget">
-                <div class="panel-title">More function here</div>
-                <!-- TODO:Add more -->
+                <div class="panel-title">Log Attend</div>
+                <div>
+                    @foreach (var item in Model.listAttent)
+                    {
+                        <p>@item.username attend at "@item.location" at @item.log_time</p>
+                    }
+                </div>
             </div>
         </div>
     </div>

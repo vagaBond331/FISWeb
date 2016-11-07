@@ -16,6 +16,8 @@ namespace FISWeb.Models
 
         public List<Device> listDevice { get; set; }
 
+        public List<AttendViewModel> listAttent { get; set; }
+
         public AdminViewModels()
         {
             logUser = new User();
@@ -23,6 +25,14 @@ namespace FISWeb.Models
             monthAttend = new List<string[]>();
             numDays = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
             listDevice = new List<Device>();
+            listAttent = new List<AttendViewModel>();
         }
+    }
+
+    public class AttendViewModel
+    {
+        public string username;
+        public string location;
+        public DateTime log_time;
     }
 }

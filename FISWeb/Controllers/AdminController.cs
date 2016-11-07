@@ -26,6 +26,18 @@ namespace FISWeb.Controllers
             }
             model.listDevice = db.Devices.ToList();
 
+            foreach (var item in db.Attents)
+            {
+                AttendViewModel at = new AttendViewModel();
+                User us = db.Users.Find(item.attent_user);
+                at.username = us.first_name + " " + us.last_name;
+                at.log_time = item.attent_time;
+                at.location = db.Devices.Find(item.attent_device).description;
+                model.listAttent.Add(at);
+            }
+
+            ViewBag.logUserID = user_id;
+
             return View(model);
         }
 
@@ -57,6 +69,19 @@ namespace FISWeb.Controllers
                 }
             }
             return listMonth;
+        }
+
+        public ActionResult activeDevice(string item_id)
+        {
+            Device de = db.Devices.Find(item_id);
+            if (de.device_status == 1) de.device_status = 2;
+            else de.device_status = 1;
+
+            //when got error on update
+            db.Entry(de).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "Admin");
         }
     }
 }
