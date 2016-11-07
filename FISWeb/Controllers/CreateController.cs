@@ -11,10 +11,17 @@ namespace FISWeb.Controllers
     {
         private FISEntities db = new FISEntities();
         // GET: Create
-        public ActionResult CreateEmployee()
+        public ActionResult CreateEmployee(string logUserID)
         {
+            User logUser = db.Users.Find(logUserID);
+
             List<Position> listPos = db.Positions.ToList();
             listPos = listPos.OrderBy(o => o.pos_type).ToList();
+
+            if(logUser.user_type == 2)
+            {
+                listPos = listPos.Where(o => o.pos_type == 3).ToList();
+            }
 
             List<SelectListItem> listItems = new List<SelectListItem>();
             foreach (var item in listPos)

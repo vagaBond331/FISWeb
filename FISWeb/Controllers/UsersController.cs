@@ -19,10 +19,10 @@ namespace FISWeb.Controllers
             return View();
         }
 
-        public ActionResult CheckLogin(LoginUser user)
+        public ActionResult CheckLogin(LoginUser logUser)
         {
-            String username = user.Username;
-            String password = user.Password;
+            String username = logUser.Username;
+            String password = logUser.Password;
             List<User> list = db.Users.ToList();
 
             Boolean ck = false;
@@ -39,7 +39,7 @@ namespace FISWeb.Controllers
             }
 
             if (ck == false) return RedirectToAction("Login", "Users");
-            else return RedirectToAction("Index", "Admin", new { user_id = us.user_id });
+            else return RedirectToAction("Index", "Admin", new { logUserID = us.user_id });
         }
 
         // GET: Users

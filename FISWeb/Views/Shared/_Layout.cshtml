@@ -66,19 +66,26 @@
                     <li>
                         <a href="#"><i class="fa fa-tachometer"></i><span>Employee</span></a>
                     </li>
-                    <li id="menu-academico">
-                        <a href="#">
-                            <i class="lnr lnr-layers"></i> <span>Register</span> <span class="fa fa-angle-right" style="float: right"></span>
-                        </a>
-                        <ul id="menu-academico-sub">
-                            <li id="menu-academico-avaliacoes">
-                                <a href="@Url.Action("CreateEmployee", "Create")"><span>New Employee</span></a>
-                            </li>
-                            <li id="menu-academico-avaliacoes">
-                                <a href="@Url.Action("CreateDevice", "Create")"><span>New Device</span></a>
-                            </li>
-                        </ul>
-                    </li>
+                    @if (ViewBag.logUserType != 3) // Admin or Manager
+                    {
+                        <li id="menu-academico">
+                            <a href="#">
+                                <i class="lnr lnr-layers"></i> <span>Register</span> <span class="fa fa-angle-right" style="float: right"></span>
+                            </a>
+                            <ul id="menu-academico-sub">
+                                <li id="menu-academico-avaliacoes">
+                                    <a href="@Url.Action("CreateEmployee", "Create", new {@logUserID = ViewBag.logUserID})"><span>New Employee</span></a>
+                                </li>
+                                @if (ViewBag.logUserType != 2) // Admin
+                                {
+                                    <li id="menu-academico-avaliacoes">
+                                        <a href="@Url.Action("CreateDevice", "Create")"><span>New Device</span></a>
+                                    </li>
+                                }
+                                
+                            </ul>
+                        </li>
+                    }
                     <li>
                         <a href="#">
                             <i class="lnr lnr-chart-bars"></i> <span>Logout</span>
@@ -90,27 +97,27 @@
         <div class="clearfix"></div>
     </div>
     <script>
-	var toggle = true;
-	$(".sidebar-icon").click(
-			function() {
-				if (toggle) {
-					$(".page-container").addClass("sidebar-collapsed")
-							.removeClass("sidebar-collapsed-back");
-					$("#menu span").css({
-						"position" : "absolute"
-					});
-				} else {
-					$(".page-container").removeClass("sidebar-collapsed")
-							.addClass("sidebar-collapsed-back");
-					setTimeout(function() {
-						$("#menu span").css({
-							"position" : "relative"
-						});
-					}, 400);
-				}
+        var toggle = true;
+        $(".sidebar-icon").click(
+                function () {
+                    if (toggle) {
+                        $(".page-container").addClass("sidebar-collapsed")
+                                .removeClass("sidebar-collapsed-back");
+                        $("#menu span").css({
+                            "position": "absolute"
+                        });
+                    } else {
+                        $(".page-container").removeClass("sidebar-collapsed")
+                                .addClass("sidebar-collapsed-back");
+                        setTimeout(function () {
+                            $("#menu span").css({
+                                "position": "relative"
+                            });
+                        }, 400);
+                    }
 
-				toggle = !toggle;
-			});
+                    toggle = !toggle;
+                });
     </script>
 </body>
 </html>
