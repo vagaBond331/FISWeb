@@ -43,12 +43,16 @@
                                 }
                             </tr>
                             <tr>
-                                @for (int j = 1; j < Model.numDays + 1; j++)
+                                @for (int i = 1; i < Model.numDays + 1; i++)
                                 {
                                     <td>
-                                        @if(@Model.monthAttend[j] == true)
+                                        @if (@Model.monthAttend[i] == true)
                                         {
                                             <span>v</span>
+                                        }
+                                        else if (i < DateTime.Now.Day)
+                                        {
+                                            <span>-</span>
                                         }
                                         else
                                         {
@@ -68,7 +72,7 @@
             <div class="content-top-1">
                 <div class="col-md-6 top-content">
                     <h5>Working days</h5>
-                    <label>@Model.countWd / @ViewBag.leftWd</label>
+                    <label>@Model.countWd / @ViewBag.totalWd</label>
                 </div>
                 <div class="col-md-6 top-content1">
                     <div id="demo-pie-1" class="pie-title-center" data-percent="@Model.percenWd"> <span class="pie-value">@Model.percenWd%</span> </div>
@@ -78,7 +82,7 @@
             <div class="content-top-1">
                 <div class="col-md-6 top-content">
                     <h5>Weekend</h5>
-                    <label>>@Model.countWk / @ViewBag.leftWk</label>
+                    <label>@Model.countWk / @ViewBag.totalWk</label>
                 </div>
                 <div class="col-md-6 top-content1">
                     <div id="demo-pie-2" class="pie-title-center" data-percent="@Model.percenWk"> <span class="pie-value">@Model.percenWk%</span> </div>
@@ -87,13 +91,13 @@
             </div>
         </div>
 
-        <div class="col-md-6 content-top-2">
-            <div class="panel panel-widget">
+        <div class="col-md-7 mid-content-top">
+            <div class="middle-content">
                 <div class="panel-title">Log Attend</div>
                 <div>
                     @foreach (var item in Model.listAttent)
                     {
-                        <p><a href="@Url.Action("Profile", "Users", new {@userID = item.user_id})">@item.fullname</a> attend at "@item.location" at @item.log_time</p>
+                        <p>Attend at "@item.location" at @item.log_time</p>
                     }
                 </div>
             </div>

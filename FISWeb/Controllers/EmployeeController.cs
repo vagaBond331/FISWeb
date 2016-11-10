@@ -17,8 +17,8 @@ namespace FISWeb.Controllers
             EmployeeViewModels model = new EmployeeViewModels();
 
             model.monthAttend = checkAttend(DateTime.Now.Month, model);
-
-            foreach (var item in db.Attents)
+            string userID = Session["logUserID"].ToString();
+            foreach (var item in db.Attents.Where(u => u.attent_user.Equals(userID)))
             {
                 AttendViewModel at = new AttendViewModel();
                 User us = db.Users.Find(item.attent_user);
@@ -30,11 +30,11 @@ namespace FISWeb.Controllers
             }
 
             model.countWd = model.monthAttend.Where(d => d == true).Count() - model.countWk;
-            model.percenWk = model.countWk / CountWeekend() * 100;
-            model.percenWd = model.countWd / (model.numDays - CountWeekend()) * 100;
+            model.percenWk = (double) model.countWk / CountWeekend() * 100;
+            model.percenWd = (double) model.countWd / (model.numDays - CountWeekend()) * 100;
 
-            ViewBag.leftWd = model.numDays - CountWeekend() - model.countWd;
-            ViewBag.leftWk = CountWeekend() - model.countWk;
+            ViewBag.totalWd = model.numDays - CountWeekend();
+            ViewBag.totalWk = CountWeekend();
 
             return View(model);
         }

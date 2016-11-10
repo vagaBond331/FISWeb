@@ -40,6 +40,7 @@ namespace FISWeb.Controllers
             else
             {
                 Session["logUserID"] = us.user_id;
+                Session["logUserType"] = us.user_type;
                 Session["logUserName"] = us.full_name;
                 if(ck == 1 || ck == 2) return RedirectToAction("Index", "Admin");
                 else return RedirectToAction("Index", "Employee");
@@ -49,6 +50,7 @@ namespace FISWeb.Controllers
         public ActionResult Logout()
         {
             Session["logUserID"] = "";
+            Session["logUserType"] = "";
             Session["logUserName"] = "";
             return RedirectToAction("Login", "Users");
         }

@@ -62,12 +62,19 @@
             <div class="menu">
                 <ul id="menu">
                     <li>
-                        <a href="@Url.Action("Index", "Admin")"><i class="fa fa-tachometer"></i><span>Home</span></a>
+                        @if (Session["logUserType"].ToString() == "3")
+                        {
+                            <a href="@Url.Action("Index", "Employee")"><i class="fa fa-tachometer"></i><span>Home</span></a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Index", "Admin")"><i class="fa fa-tachometer"></i><span>Home</span></a>
+                        }
                     </li>
                     <li>
                         <a href="@Url.Action("Profile", "Users")"><i class="fa fa-tachometer"></i><span>Profile</span></a>
                     </li>
-                    @if (ViewBag.logUserType != 3) // Admin or Manager
+                    @if (Session["logUserType"].ToString() != "3") // Admin or Manager
                     {
                         <li id="menu-academico">
                             <a href="#">
