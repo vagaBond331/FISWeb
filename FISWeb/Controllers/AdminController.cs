@@ -20,7 +20,7 @@ namespace FISWeb.Controllers
             {
                 if(item.user_type != 1)
                 {
-                    model.empListName.Add(item.first_name + " " + item.last_name);
+                    model.empListName.Add(item.full_name);
                     model.monthAttend.Add(checkAttend(item, DateTime.Now.Month));
                 }
             }
@@ -30,23 +30,21 @@ namespace FISWeb.Controllers
             {
                 AttendViewModel at = new AttendViewModel();
                 User us = db.Users.Find(item.attent_user);
-                at.username = us.first_name + " " + us.last_name;
+                at.user_id = item.attent_user;
+                at.fullname = us.full_name;
                 at.log_time = item.attent_time;
                 at.location = db.Devices.Find(item.attent_device).description;
                 model.listAttent.Add(at);
             }
 
-            ViewBag.logUserID = Session["logUserID"];
-            ViewBag.logUserType = db.Users.Find(Session["logUserID"]).user_type;
-
             return View(model);
         }
 
-        public string[] checkAttend(User us, int month)
+        public bool[] checkAttend(User us, int month)
         {
             //listMonth is attend of user for a month (31 days)
             //1st == listMonth[1]
-            string[] listMonth = new string[DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month) + 1];
+            bool[] listMonth = new bool[DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month) + 1];
 
             List<Attent> list = db.Attents.Where(o => o.attent_user.Equals(us.user_id)).ToList();
 
@@ -56,7 +54,7 @@ namespace FISWeb.Controllers
                 int day = list[i].attent_time.Day;
                 if(month == list[i].attent_time.Month)
                 {
-                    listMonth[day] = "v";
+                    listMonth[day] = true;
                 }
             }
             return listMonth;

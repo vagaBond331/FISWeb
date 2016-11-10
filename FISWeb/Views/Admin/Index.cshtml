@@ -12,10 +12,10 @@
                     <div class="gantt">
                         <table border="1">
                             <tr>
-                                <th rowspan="2">
+                                <th rowspan="2" class="tbcell">
                                     Employee
                                 </th>
-                                <th colspan=@Model.numDays>
+                                <th colspan=@Model.numDays  class="tbcell">
                                     November
                                 </th>
                             </tr>
@@ -23,20 +23,27 @@
                             <tr>
                                 @for (int i = 0; i < Model.numDays; i++)
                                 {
-                                    <th>@(i + 1)</th>
+                                    <th  class="tbcell">@(i + 1)</th>
                                 }
                             </tr>
 
                             @for (int i = 0; i < Model.empListName.Count; i++)
                             {
                                 <tr>
-                                    <td>
+                                    <td class="tbcell">
                                         <span>@Model.empListName[i]</span>
                                     </td>
                                     @for (int j = 1; j < Model.numDays + 1; j++)
                                     {
                                         <td>
-                                            <span>@Model.monthAttend[i][j]</span>
+                                            @if (@Model.monthAttend[i][j] == true)
+                                            {
+                                                 <span>v</span>
+                                            }
+                                            else
+                                            {
+                                                <span></span>
+                                            }
                                         </td>
                                     }
                                 </tr>
@@ -73,7 +80,7 @@
                 <div>
                     @foreach (var item in Model.listAttent)
                     {
-                        <p>@item.username attend at "@item.location" at @item.log_time</p>
+                        <p><a href="@Url.Action("Profile", "Users", new {@userID = item.user_id})">@item.fullname</a> attend at "@item.location" at @item.log_time</p>
                     }
                 </div>
             </div>

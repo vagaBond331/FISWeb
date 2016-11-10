@@ -11,9 +11,9 @@ namespace FISWeb.Controllers
     {
         private FISEntities db = new FISEntities();
         // GET: Create
-        public ActionResult CreateEmployee(string logUserID)
+        public ActionResult CreateEmployee()
         {
-            User logUser = db.Users.Find(logUserID);
+            User logUser = db.Users.Find(Session["logUserID"]);
 
             List<Position> listPos = db.Positions.ToList();
             listPos = listPos.OrderBy(o => o.pos_type).ToList();
@@ -72,8 +72,7 @@ namespace FISWeb.Controllers
             newUser.password = model.password;
             newUser.status = 1;
             newUser.user_type = pos.pos_type;
-            newUser.first_name = model.first_name;
-            newUser.last_name = model.last_name;
+            newUser.full_name = model.full_name;
             newUser.mail = model.Email;
             newUser.DOB = model.DOB;
             newUser.address = model.address;

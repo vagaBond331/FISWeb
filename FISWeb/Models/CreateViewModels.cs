@@ -17,11 +17,8 @@ namespace FISWeb.Models
         [Display(Name = "Password")]
         public string password { get; set; }
 
-        [Display(Name = "Firstname")]
-        public string first_name { get; set; }
-
-        [Display(Name = "Position")]
-        public string last_name { get; set; }
+        [Display(Name = "Fullname")]
+        public string full_name { get; set; }
 
         [Required]
         [Display(Name = "Email")]

@@ -199,10 +199,13 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CreateController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmployeeViewModels.cs" />
+    <Compile Include="Models\UserViewModels.cs" />
     <Compile Include="Models\Attent.cs">
       <DependentUpon>FISdb.tt</DependentUpon>
     </Compile>
@@ -253,6 +256,8 @@
     <Content Include="Content\icon-font.min.css" />
     <Content Include="Content\login-animate-custom.css" />
     <Content Include="Content\login-style.css" />
+    <Content Include="Content\owl.carousel.css" />
+    <Content Include="Content\profile-style.css" />
     <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -260,6 +265,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\ava-bg.jpg" />
+    <Content Include="Images\avatar.jpg" />
     <Content Include="Images\bag.png" />
     <Content Include="Images\banner.jpg" />
     <Content Include="Images\closew.gif" />
@@ -312,14 +319,20 @@
       <DependentUpon>FISdb.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\easing.js" />
+    <Content Include="Scripts\easyResponsiveTabs.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\move-top.js" />
+    <Content Include="Scripts\owl.carousel.js" />
+    <Content Include="Scripts\pie-chart.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -340,6 +353,8 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Create\CreateEmployee.cshtml" />
     <Content Include="Views\Create\CreateDevice.cshtml" />
+    <Content Include="Views\Users\Profile.cshtml" />
+    <Content Include="Views\Employee\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

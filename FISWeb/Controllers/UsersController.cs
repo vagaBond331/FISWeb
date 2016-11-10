@@ -23,25 +23,26 @@ namespace FISWeb.Controllers
         {
             List<User> list = db.Users.ToList();
 
-            Boolean ck = false;
+            int ck = 0;
             User us = new User();
 
             foreach (var item in list)
             {
                 if(item.username.Equals(logUser.Username) && item.password.Equals(logUser.Password))
                 {
-                    ck = true;
                     us = item;
+                    ck = us.user_type ?? default(int);
                     break;
                 }
             }
 
-            if (ck == false) return RedirectToAction("Login", "Users");
+            if (ck == 0) return RedirectToAction("Login", "Users");
             else
             {
                 Session["logUserID"] = us.user_id;
-                Session["logUserName"] = us.first_name + " " + us.last_name;
-                return RedirectToAction("Index", "Admin");
+                Session["logUserName"] = us.full_name;
+                if(ck == 1 || ck == 2) return RedirectToAction("Index", "Admin");
+                else return RedirectToAction("Index", "Employee");
             }
         }
 
@@ -53,9 +54,21 @@ namespace FISWeb.Controllers
         }
 
         // GET: Users
-        public ActionResult Index()
+        public ActionResult Profile(string userID)
         {
-            return View(db.Users.ToList());
+            User logUser = new User();
+            if(userID == null) logUser = db.Users.Find(Session["logUserID"]);
+            else logUser = db.Users.Find(userID);
+            Profile pr = new Profile();
+            pr.position = db.Positions.Find(logUser.pos_id).pos_displayed;
+            pr.name = logUser.full_name;
+            pr.DOB = logUser.DOB;
+            pr.phone = logUser.phone;
+            pr.department = logUser.department;
+            pr.address = logUser.address;
+            pr.email = logUser.mail;
+
+            return View(pr);
         }
     }
 }

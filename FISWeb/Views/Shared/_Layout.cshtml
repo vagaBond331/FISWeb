@@ -17,6 +17,7 @@
     <!-- lined-icons -->
     <link href="~/Content/icon-font.min.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/pie-chart.js"></script>
     <script type="application/x-javascript">
         addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }
     </script>
@@ -39,7 +40,7 @@
                             </div>
                             <div class="top_left">
                                 <h2>
-                                    <span></span> Call us : 016.333.99.661
+                                    <span></span> Hi, @Session["logUserName"]
                                 </h2>
                             </div>
                             <div class="clearfix"></div>
@@ -61,10 +62,10 @@
             <div class="menu">
                 <ul id="menu">
                     <li>
-                        <a href="@Url.Action("Index", "Admin", new {@logUserID = ViewBag.logUserID})"><i class="fa fa-tachometer"></i><span>Home</span></a>
+                        <a href="@Url.Action("Index", "Admin")"><i class="fa fa-tachometer"></i><span>Home</span></a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-tachometer"></i><span>Employee</span></a>
+                        <a href="@Url.Action("Profile", "Users")"><i class="fa fa-tachometer"></i><span>Profile</span></a>
                     </li>
                     @if (ViewBag.logUserType != 3) // Admin or Manager
                     {
@@ -74,7 +75,7 @@
                             </a>
                             <ul id="menu-academico-sub">
                                 <li id="menu-academico-avaliacoes">
-                                    <a href="@Url.Action("CreateEmployee", "Create", new {@logUserID = ViewBag.logUserID})"><span>New Employee</span></a>
+                                    <a href="@Url.Action("CreateEmployee", "Create")"><span>New Employee</span></a>
                                 </li>
                                 @if (ViewBag.logUserType != 2) // Admin
                                 {

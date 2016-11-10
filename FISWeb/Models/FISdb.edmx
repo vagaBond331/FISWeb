@@ -56,14 +56,16 @@
           <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="status" Type="int" />
           <Property Name="user_type" Type="int" />
-          <Property Name="first_name" Type="nvarchar" MaxLength="50" />
-          <Property Name="last_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="full_name" Type="nvarchar" MaxLength="50" />
           <Property Name="mail" Type="nvarchar" MaxLength="50" />
           <Property Name="DOB" Type="date" />
           <Property Name="address" Type="nvarchar" MaxLength="50" />
-          <Property Name="pos_id" Type="nchar" MaxLength="10" />
+          <Property Name="pos_id" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="department" Type="nvarchar" MaxLength="50" />
           <Property Name="phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="avatar" Type="nvarchar" MaxLength="50" />
+          <Property Name="finger_image" Type="nvarchar" MaxLength="50" />
+          <Property Name="finger_vector" Type="nvarchar" MaxLength="50" />
           <Property Name="created_by" Type="nchar" MaxLength="10" />
           <Property Name="created_date" Type="datetime" />
         </EntityType>
@@ -160,16 +162,18 @@
           <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="status" Type="Int32" />
           <Property Name="user_type" Type="Int32" />
-          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DOB" Type="DateTime" Precision="0" />
           <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="pos_id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="pos_id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="created_by" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="created_date" Type="DateTime" Precision="3" />
+          <Property Name="full_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="avatar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="finger_image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="finger_vector" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="FISEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Attents" EntityType="Self.Attent" />
@@ -274,13 +278,15 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="FISModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="finger_vector" ColumnName="finger_vector" />
+                <ScalarProperty Name="finger_image" ColumnName="finger_image" />
+                <ScalarProperty Name="avatar" ColumnName="avatar" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="user_type" ColumnName="user_type" />
-                <ScalarProperty Name="first_name" ColumnName="first_name" />
-                <ScalarProperty Name="last_name" ColumnName="last_name" />
                 <ScalarProperty Name="mail" ColumnName="mail" />
                 <ScalarProperty Name="DOB" ColumnName="DOB" />
                 <ScalarProperty Name="address" ColumnName="address" />

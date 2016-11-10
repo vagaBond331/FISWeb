@@ -10,7 +10,7 @@ namespace FISWeb.Models
 
         public List<string> empListName { get; set; }
 
-        public List<string[]> monthAttend { get; set; }
+        public List<bool[]> monthAttend { get; set; }
 
         public int numDays { get; set; }
 
@@ -22,7 +22,7 @@ namespace FISWeb.Models
         {
             logUser = new User();
             empListName = new List<string>();
-            monthAttend = new List<string[]>();
+            monthAttend = new List<bool[]>();
             numDays = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
             listDevice = new List<Device>();
             listAttent = new List<AttendViewModel>();
@@ -31,7 +31,8 @@ namespace FISWeb.Models
 
     public class AttendViewModel
     {
-        public string username;
+        public string user_id;
+        public string fullname;
         public string location;
         public DateTime log_time;
     }

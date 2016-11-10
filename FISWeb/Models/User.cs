@@ -11,17 +11,18 @@ namespace FISWeb.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class User
     {
         public string user_id { get; set; }
         public string username { get; set; }
         public string password { get; set; }
+        public string full_name { get; set; }
+        public string avatar { get; set; }
+        public string finger_image { get; set; }
+        public string finger_vector { get; set; }
         public Nullable<int> status { get; set; }
         public Nullable<int> user_type { get; set; }
-        public string first_name { get; set; }
-        public string last_name { get; set; }
         public string mail { get; set; }
         public Nullable<System.DateTime> DOB { get; set; }
         public string address { get; set; }
@@ -30,21 +31,5 @@ namespace FISWeb.Models
         public string phone { get; set; }
         public string created_by { get; set; }
         public Nullable<System.DateTime> created_date { get; set; }
-    }
-
-    public class LoginUser
-    {
-        [Required]
-        [Display(Name = "Username")]
-        [EmailAddress]
-        public string Username { get; set; }
-
-        [Required]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
-        public string Password { get; set; }
-
-        [Display(Name = "Remember me?")]
-        public bool RememberMe { get; set; }
     }
 }
