@@ -1,0 +1,111 @@
+﻿@model IEnumerable<FISWeb.Models.Profile>
+@{
+    ViewBag.Title = "listProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="content">
+    <div class="monthly-grid">
+        <div class="panel panel-widget">
+            
+            <table class="table">
+                <tr colspan="5"><div class="panel-title">List manager</div></tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.username)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.position)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.phone)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.email)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    if (item.user_type == 2)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.username)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.position)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.phone)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.email)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Index", "Edit", new { id = item.username })
+                            </td>
+                        </tr>
+                    }
+                }
+
+
+
+                <tr colspan="5"><div class="panel-title">List Employee</div></tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.username)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.position)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.phone)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.email)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    if (item.user_type == 3)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.username)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.position)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.phone)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.email)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Index", "Edit", new { id = item.username })
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </div>
+</div>

@@ -254,6 +254,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\icon-font.min.css" />
+    <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\login-animate-custom.css" />
     <Content Include="Content\login-style.css" />
     <Content Include="Content\owl.carousel.css" />
@@ -323,6 +324,7 @@
     <Content Include="Scripts\easyResponsiveTabs.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-ui-themes-1.12.1.zip" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -355,6 +357,7 @@
     <Content Include="Views\Create\CreateDevice.cshtml" />
     <Content Include="Views\Users\Profile.cshtml" />
     <Content Include="Views\Employee\Index.cshtml" />
+    <Content Include="Views\Users\listProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

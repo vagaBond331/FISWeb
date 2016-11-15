@@ -59,9 +59,29 @@ namespace FISWeb.Controllers
         public ActionResult Profile(string userID)
         {
             User logUser = new User();
-            if(userID == null) logUser = db.Users.Find(Session["logUserID"]);
+            if (userID == null) logUser = db.Users.Find(Session["logUserID"]);
             else logUser = db.Users.Find(userID);
+            
+            return View(userToProfile(logUser));
+        }
+
+        public ActionResult ListProfile()
+        {
+            List<User> listUser = db.Users.Where(u => u.user_type != 1).ToList();
+            List<Profile> listProfile = new List<Profile>();
+
+            foreach (var item in listUser)
+            {
+                listProfile.Add(userToProfile(item));
+            }
+
+            return View(listProfile);
+        }
+
+        public Profile userToProfile(User logUser)
+        {
             Profile pr = new Profile();
+            pr.username = logUser.username;
             pr.position = db.Positions.Find(logUser.pos_id).pos_displayed;
             pr.name = logUser.full_name;
             pr.DOB = logUser.DOB;
@@ -69,8 +89,9 @@ namespace FISWeb.Controllers
             pr.department = logUser.department;
             pr.address = logUser.address;
             pr.email = logUser.mail;
+            pr.user_type = logUser.user_type;
 
-            return View(pr);
+            return pr;
         }
     }
 }

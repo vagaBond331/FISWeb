@@ -10,7 +10,7 @@ namespace FISWeb.Controllers
     public class CreateController : Controller
     {
         private FISEntities db = new FISEntities();
-        // GET: Create
+
         public ActionResult CreateEmployee()
         {
             User logUser = db.Users.Find(Session["logUserID"]);
@@ -18,7 +18,7 @@ namespace FISWeb.Controllers
             List<Position> listPos = db.Positions.ToList();
             listPos = listPos.OrderBy(o => o.pos_type).ToList();
 
-            if(logUser.user_type == 2)
+            if (logUser.user_type == 2)
             {
                 listPos = listPos.Where(o => o.pos_type == 3).ToList();
             }
@@ -68,8 +68,21 @@ namespace FISWeb.Controllers
                     newUser.user_id = "EM" + newID;
                     break;
             }
-            newUser.username = model.username;
-            newUser.password = model.password;
+
+            string username = RemoveVietnamese(model.full_name.ToLower());
+
+            string[] name = username.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < name.Count() - 1; i++)
+            {
+                name[name.Count() - 1] += name[i].First();
+            }
+            string namei = name[name.Count() - 1];
+            int c = db.Users.Where(u => u.username.Contains(namei)).ToList().Count();
+            newUser.username = (c == 0) ? namei : namei + c;
+
+            //default passwork
+            newUser.password = Constants.defaultPassword;
+
             newUser.status = 1;
             newUser.user_type = pos.pos_type;
             newUser.full_name = model.full_name;
@@ -90,15 +103,25 @@ namespace FISWeb.Controllers
 
             List<Device> listDevice = db.Devices.ToList();
             int newID = int.Parse(listDevice.Last().device_id.Substring(1)) + 1;
-            
+
             newDevice.device_id = "P" + newID;
             newDevice.device_name = model.device_name;
             newDevice.description = model.description;
             newDevice.device_status = 2;
-            
+
             db.Devices.Add(newDevice);
             db.SaveChanges();
             return RedirectToAction("Index", "Admin");
+        }
+
+        public static string RemoveVietnamese(string str)
+        {
+            for (int i = 1; i < Constants.VietnameseSigns.Length; i++)
+            {
+                for (int j = 0; j < Constants.VietnameseSigns[i].Length; j++)
+                    str = str.Replace(Constants.VietnameseSigns[i][j], Constants.VietnameseSigns[0][i - 1]);
+            }
+            return str;
         }
     }
 }
