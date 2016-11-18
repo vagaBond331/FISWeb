@@ -4,12 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="828a91e29bb2406b8bd1c13c048e560b" Name="Diagram1">
-        <EntityTypeShape EntityType="FISModel.Attent" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="FISModel.Device" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="FISModel.Position" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="FISModel.sysdiagram" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="FISModel.User" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="6583eb2ea2414ed09fabd0c7b5f2c4a5" Name="Diagram1">
+        <EntityTypeShape EntityType="FISModel.Attent" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FISModel.Device" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FISModel.Position" Width="1.5" PointX="3" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FISModel.sysdiagram" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FISModel.User" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <AssociationConnector Association="FISModel.att1" ManuallyRouted="false" />
+        <AssociationConnector Association="FISModel.att2" ManuallyRouted="false" />
+        <AssociationConnector Association="FISModel.de1" ManuallyRouted="false" />
+        <AssociationConnector Association="FISModel.pos1" ManuallyRouted="false" />
+        <AssociationConnector Association="FISModel.us1" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

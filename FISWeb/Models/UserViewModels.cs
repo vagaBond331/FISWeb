@@ -9,7 +9,7 @@ namespace FISWeb.Models
         [Required]
         [Display(Name = "Username")]
         [EmailAddress]
-        public string Username { get; set; }
+        public string UserID { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -23,7 +23,7 @@ namespace FISWeb.Models
     public class Profile
     {
         [Display(Name = "ID")]
-        public string username { get; set; }
+        public string userID { get; set; }
 
         [Display(Name = "Position")]
         public string position { get; set; }
@@ -47,5 +47,11 @@ namespace FISWeb.Models
         public string email { get; set; }
 
         public Nullable<int> user_type { get; set; }
+
+        [Display(Name = "Avatar")]
+        public string avatar { get; set; }
+
+        [Display(Name = "Fingerprint Image")]
+        public string finger_image { get; set; }
     }
 }

@@ -14,6 +14,8 @@ namespace FISWeb.Controllers
         // GET: Employee
         public ActionResult Index()
         {
+            if (Session["logUserID"] == null) return RedirectToAction("Logout", "Users");
+
             EmployeeViewModels model = new EmployeeViewModels();
 
             model.monthAttend = checkAttend(DateTime.Now.Month, model);

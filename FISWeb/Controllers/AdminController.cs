@@ -14,6 +14,8 @@ namespace FISWeb.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            if(Session["logUserID"] == null) return RedirectToAction("Logout", "Users");
+
             AdminViewModels model = new AdminViewModels();
             model.logUser = db.Users.Find(Session["logUserID"]);
             foreach (var item in db.Users)
@@ -62,6 +64,8 @@ namespace FISWeb.Controllers
 
         public ActionResult activeDevice(string item_id)
         {
+            if (Session["logUserID"] == null) return RedirectToAction("Logout", "Users"); 
+
             Device de = db.Devices.Find(item_id);
             if (de.device_status == 1) de.device_status = 2;
             else de.device_status = 1;

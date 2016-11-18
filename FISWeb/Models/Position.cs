@@ -14,10 +14,20 @@ namespace FISWeb.Models
     
     public partial class Position
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Position()
+        {
+            this.Users = new HashSet<User>();
+        }
+    
         public string pos_id { get; set; }
         public string pos_displayed { get; set; }
         public int pos_type { get; set; }
         public string created_by { get; set; }
         public Nullable<System.DateTime> created_date { get; set; }
+    
+        public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> Users { get; set; }
     }
 }

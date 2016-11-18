@@ -20,5 +20,8 @@ namespace FISWeb.Models
         public string attent_device { get; set; }
         public int attent_type { get; set; }
         public string description { get; set; }
+    
+        public virtual User User { get; set; }
+        public virtual Device Device { get; set; }
     }
 }

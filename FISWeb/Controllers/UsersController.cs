@@ -28,10 +28,10 @@ namespace FISWeb.Controllers
 
             foreach (var item in list)
             {
-                if(item.username.Equals(logUser.Username) && item.password.Equals(logUser.Password))
+                if(item.user_id.Equals(logUser.UserID) && item.password.Equals(logUser.Password))
                 {
                     us = item;
-                    ck = us.user_type ?? default(int);
+                    ck = us.user_type;
                     break;
                 }
             }
@@ -49,9 +49,9 @@ namespace FISWeb.Controllers
 
         public ActionResult Logout()
         {
-            Session["logUserID"] = "";
-            Session["logUserType"] = "";
-            Session["logUserName"] = "";
+            Session["logUserID"] = null;
+            Session["logUserType"] = null;
+            Session["logUserName"] = null;
             return RedirectToAction("Login", "Users");
         }
 
@@ -81,7 +81,7 @@ namespace FISWeb.Controllers
         public Profile userToProfile(User logUser)
         {
             Profile pr = new Profile();
-            pr.username = logUser.username;
+            pr.userID = logUser.user_id;
             pr.position = db.Positions.Find(logUser.pos_id).pos_displayed;
             pr.name = logUser.full_name;
             pr.DOB = logUser.DOB;

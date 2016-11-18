@@ -1,0 +1,45 @@
+﻿@model FISWeb.Models.Profile
+
+@{
+    ViewBag.Title = "UpdateEmpImage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content">
+    <div class="monthly-grid">
+        <div class="panel panel-widget">
+            <div class="panel-title">Update avatar and fingerprint</div>
+
+            @using (Html.BeginForm("AddNewEmp", "Create", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.avatar, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                        <div class="col-md-5 header-left">
+                            <img height="300" width="300" src="~/Images/avatar.jpg" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.finger_image, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <a href="@Url.Action("refreshImage", "Create")">Refresh</a>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Register" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

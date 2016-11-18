@@ -13,8 +13,9 @@ namespace FISWeb.Controllers
 
         public ActionResult CreateEmployee()
         {
-            User logUser = db.Users.Find(Session["logUserID"]);
+            if (Session["logUserID"] == null) return RedirectToAction("Logout", "Users");
 
+            User logUser = db.Users.Find(Session["logUserID"]);
             List<Position> listPos = db.Positions.ToList();
             listPos = listPos.OrderBy(o => o.pos_type).ToList();
 
@@ -47,27 +48,21 @@ namespace FISWeb.Controllers
 
         public ActionResult CreateDevice()
         {
+            if (Session["logUserID"] == null) return RedirectToAction("Logout", "Users");
+            return View();
+        }
+
+        public ActionResult UpdateEmpImage()
+        {
+            if (Session["logUserID"] == null) return RedirectToAction("Logout", "Users");
             return View();
         }
 
         public ActionResult AddNewEmp(CreateEmployeeModel model)
         {
+            if (Session["logUserID"] == null) return RedirectToAction("Logout", "Users");
             Position pos = db.Positions.Find(model.posID);
-            List<User> listUser = db.Users.Where(o => o.user_type == pos.pos_type).ToList();
-            int newID = int.Parse(listUser.Last().user_id.Substring(2)) + 1;
             User newUser = new User();
-            switch (pos.pos_type)
-            {
-                case 1:
-                    newUser.user_id = "AD" + newID;
-                    break;
-                case 2:
-                    newUser.user_id = "MN" + newID;
-                    break;
-                case 3:
-                    newUser.user_id = "EM" + newID;
-                    break;
-            }
 
             string username = RemoveVietnamese(model.full_name.ToLower());
 
@@ -77,8 +72,8 @@ namespace FISWeb.Controllers
                 name[name.Count() - 1] += name[i].First();
             }
             string namei = name[name.Count() - 1];
-            int c = db.Users.Where(u => u.username.Contains(namei)).ToList().Count();
-            newUser.username = (c == 0) ? namei : namei + c;
+            int c = db.Users.Where(u => u.user_id.Contains(namei)).ToList().Count();
+            newUser.user_id = (c == 0) ? namei : namei + c;
 
             //default passwork
             newUser.password = Constants.defaultPassword;
@@ -95,10 +90,12 @@ namespace FISWeb.Controllers
 
             db.Users.Add(newUser);
             db.SaveChanges();
-            return RedirectToAction("Index", "Admin");
+            return RedirectToAction("UpdateEmpImage", "Create");
         }
+
         public ActionResult AddNewDevice(CreateDeviceModel model)
         {
+            if (Session["logUserID"] == null) return RedirectToAction("Logout", "Users");
             Device newDevice = new Device();
 
             List<Device> listDevice = db.Devices.ToList();

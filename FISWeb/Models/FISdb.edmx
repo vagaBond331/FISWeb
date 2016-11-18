@@ -4,13 +4,13 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="FISModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="FISModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Attent">
           <Key>
             <PropertyRef Name="log_id" />
           </Key>
           <Property Name="log_id" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="attent_user" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="attent_user" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="attent_time" Type="datetime" Nullable="false" />
           <Property Name="attent_device" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="attent_type" Type="int" Nullable="false" />
@@ -24,7 +24,7 @@
           <Property Name="description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="device_name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="device_status" Type="int" />
-          <Property Name="created_by" Type="nchar" MaxLength="10" />
+          <Property Name="created_by" Type="varchar" MaxLength="50" />
           <Property Name="created_date" Type="datetime" />
         </EntityType>
         <EntityType Name="Position">
@@ -34,7 +34,7 @@
           <Property Name="pos_id" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="pos_displayed" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="pos_type" Type="int" Nullable="false" />
-          <Property Name="created_by" Type="nchar" MaxLength="10" />
+          <Property Name="created_by" Type="varchar" MaxLength="50" />
           <Property Name="created_date" Type="datetime" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -51,12 +51,11 @@
           <Key>
             <PropertyRef Name="user_id" />
           </Key>
-          <Property Name="user_id" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="status" Type="int" />
-          <Property Name="user_type" Type="int" />
-          <Property Name="full_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="user_id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="user_type" Type="int" Nullable="false" />
+          <Property Name="full_name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="mail" Type="nvarchar" MaxLength="50" />
           <Property Name="DOB" Type="date" />
           <Property Name="address" Type="nvarchar" MaxLength="50" />
@@ -69,6 +68,66 @@
           <Property Name="created_by" Type="nchar" MaxLength="10" />
           <Property Name="created_date" Type="datetime" />
         </EntityType>
+        <Association Name="att1">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Attent" Type="Self.Attent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Attent">
+              <PropertyRef Name="attent_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="att2">
+          <End Role="Device" Type="Self.Device" Multiplicity="1" />
+          <End Role="Attent" Type="Self.Attent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="device_id" />
+            </Principal>
+            <Dependent Role="Attent">
+              <PropertyRef Name="attent_device" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="de1">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Device" Type="Self.Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="created_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="pos1">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Position" Type="Self.Position" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Position">
+              <PropertyRef Name="created_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="us1">
+          <End Role="Position" Type="Self.Position" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="pos_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="pos_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -106,8 +165,29 @@
           <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="att1" Association="Self.att1">
+            <End Role="User" EntitySet="User" />
+            <End Role="Attent" EntitySet="Attent" />
+          </AssociationSet>
+          <AssociationSet Name="att2" Association="Self.att2">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="Attent" EntitySet="Attent" />
+          </AssociationSet>
+          <AssociationSet Name="de1" Association="Self.de1">
+            <End Role="User" EntitySet="User" />
+            <End Role="Device" EntitySet="Device" />
+          </AssociationSet>
+          <AssociationSet Name="pos1" Association="Self.pos1">
+            <End Role="User" EntitySet="User" />
+            <End Role="Position" EntitySet="Position" />
+          </AssociationSet>
+          <AssociationSet Name="us1" Association="Self.us1">
+            <End Role="Position" EntitySet="Position" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FISModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -116,11 +196,13 @@
             <PropertyRef Name="log_id" />
           </Key>
           <Property Name="log_id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="attent_user" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="attent_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="attent_time" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="attent_device" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="attent_type" Type="Int32" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="Self.att1" FromRole="Attent" ToRole="User" />
+          <NavigationProperty Name="Device" Relationship="Self.att2" FromRole="Attent" ToRole="Device" />
         </EntityType>
         <EntityType Name="Device">
           <Key>
@@ -130,8 +212,10 @@
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="device_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="device_status" Type="Int32" />
-          <Property Name="created_by" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="created_by" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="created_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Attents" Relationship="Self.att2" FromRole="Device" ToRole="Attent" />
+          <NavigationProperty Name="User" Relationship="Self.de1" FromRole="Device" ToRole="User" />
         </EntityType>
         <EntityType Name="Position">
           <Key>
@@ -140,8 +224,10 @@
           <Property Name="pos_id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="pos_displayed" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="pos_type" Type="Int32" Nullable="false" />
-          <Property Name="created_by" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="created_by" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="created_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Self.pos1" FromRole="Position" ToRole="User" />
+          <NavigationProperty Name="Users" Relationship="Self.us1" FromRole="Position" ToRole="User" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -157,30 +243,113 @@
           <Key>
             <PropertyRef Name="user_id" />
           </Key>
-          <Property Name="user_id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="status" Type="Int32" />
-          <Property Name="user_type" Type="Int32" />
+          <Property Name="user_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="user_type" Type="Int32" Nullable="false" />
+          <Property Name="full_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DOB" Type="DateTime" Precision="0" />
           <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="pos_id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="created_by" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="created_date" Type="DateTime" Precision="3" />
-          <Property Name="full_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="avatar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="finger_image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="finger_vector" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="created_by" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Attents" Relationship="Self.att1" FromRole="User" ToRole="Attent" />
+          <NavigationProperty Name="Devices" Relationship="Self.de1" FromRole="User" ToRole="Device" />
+          <NavigationProperty Name="Positions" Relationship="Self.pos1" FromRole="User" ToRole="Position" />
+          <NavigationProperty Name="Position" Relationship="Self.us1" FromRole="User" ToRole="Position" />
         </EntityType>
+        <Association Name="att1">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Attent" Type="Self.Attent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Attent">
+              <PropertyRef Name="attent_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="att2">
+          <End Role="Device" Type="Self.Device" Multiplicity="1" />
+          <End Role="Attent" Type="Self.Attent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="device_id" />
+            </Principal>
+            <Dependent Role="Attent">
+              <PropertyRef Name="attent_device" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="de1">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Device" Type="Self.Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="created_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="pos1">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Position" Type="Self.Position" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Position">
+              <PropertyRef Name="created_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="us1">
+          <End Role="Position" Type="Self.Position" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="pos_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="pos_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="FISEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Attents" EntityType="Self.Attent" />
           <EntitySet Name="Devices" EntityType="Self.Device" />
           <EntitySet Name="Positions" EntityType="Self.Position" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="att1" Association="Self.att1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Attent" EntitySet="Attents" />
+          </AssociationSet>
+          <AssociationSet Name="att2" Association="Self.att2">
+            <End Role="Device" EntitySet="Devices" />
+            <End Role="Attent" EntitySet="Attents" />
+          </AssociationSet>
+          <AssociationSet Name="de1" Association="Self.de1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Device" EntitySet="Devices" />
+          </AssociationSet>
+          <AssociationSet Name="pos1" Association="Self.pos1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Position" EntitySet="Positions" />
+          </AssociationSet>
+          <AssociationSet Name="us1" Association="Self.us1">
+            <End Role="Position" EntitySet="Positions" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
@@ -244,12 +413,12 @@
           <EntitySetMapping Name="Devices">
             <EntityTypeMapping TypeName="FISModel.Device">
               <MappingFragment StoreEntitySet="Device">
-                <ScalarProperty Name="created_date" ColumnName="created_date" />
-                <ScalarProperty Name="created_by" ColumnName="created_by" />
                 <ScalarProperty Name="device_id" ColumnName="device_id" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="device_name" ColumnName="device_name" />
                 <ScalarProperty Name="device_status" ColumnName="device_status" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -278,21 +447,20 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="FISModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="finger_vector" ColumnName="finger_vector" />
-                <ScalarProperty Name="finger_image" ColumnName="finger_image" />
-                <ScalarProperty Name="avatar" ColumnName="avatar" />
-                <ScalarProperty Name="full_name" ColumnName="full_name" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="user_type" ColumnName="user_type" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
                 <ScalarProperty Name="mail" ColumnName="mail" />
                 <ScalarProperty Name="DOB" ColumnName="DOB" />
                 <ScalarProperty Name="address" ColumnName="address" />
                 <ScalarProperty Name="pos_id" ColumnName="pos_id" />
                 <ScalarProperty Name="department" ColumnName="department" />
                 <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="avatar" ColumnName="avatar" />
+                <ScalarProperty Name="finger_image" ColumnName="finger_image" />
+                <ScalarProperty Name="finger_vector" ColumnName="finger_vector" />
                 <ScalarProperty Name="created_by" ColumnName="created_by" />
                 <ScalarProperty Name="created_date" ColumnName="created_date" />
               </MappingFragment>
