@@ -57,7 +57,7 @@ namespace FISWeb.Controllers
             if (Session["logUserID"] == null) return RedirectToAction("Logout", "Users");
             return View();
         }
-
+        
         public ActionResult AddNewEmp(CreateEmployeeModel model)
         {
             if (Session["logUserID"] == null) return RedirectToAction("Logout", "Users");
@@ -74,7 +74,7 @@ namespace FISWeb.Controllers
             string namei = name[name.Count() - 1];
             int c = db.Users.Where(u => u.user_id.Contains(namei)).ToList().Count();
             newUser.user_id = (c == 0) ? namei : namei + c;
-
+            Session["regUserID"] = newUser.user_id;
             //default passwork
             newUser.password = Constants.defaultPassword;
 

@@ -10,6 +10,11 @@
         <div class="panel panel-widget">
             <div class="panel-title">Update avatar and fingerprint</div>
 
+            <div id="PopupAD" title="Register done !">
+                That employee regsistered with id <span style="color:deepskyblue">@Session["regUserID"]</span><br />
+                Now you can update avatar and fingerprint.
+            </div>
+
             @using (Html.BeginForm("AddNewEmp", "Create", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
@@ -43,3 +48,12 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#PopupAD").dialog({
+            height: 200,
+            width: 450,
+            modal: true
+        });
+    });
+</script>

@@ -19,7 +19,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.full_name, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.full_name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.full_name, new { htmlAttributes = new { @class = "form-control" , @id="fullName" } })
                             @Html.ValidationMessageFor(model => model.full_name, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -27,7 +27,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @id = "email" } })
                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control", @id = "dob" } })
                             @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -43,22 +43,22 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.address, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control", @id = "address" } })
                             @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.posID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.posID, htmlAttributes: new { @class = "control-label col-md-2", @id = "posId" })
                         <div class="col-md-10">
                             @Html.DropDownListFor(model => model.posID, new SelectList(ViewBag.PosList, "Value", "Text"))
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.department, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.department, htmlAttributes: new { @class = "control-label col-md-2"})
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.department, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.department, new { htmlAttributes = new { @class = "form-control", @id = "depart" } })
                             @Html.ValidationMessageFor(model => model.department, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -66,16 +66,19 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.phone, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.phone, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.phone, new { htmlAttributes = new { @class = "form-control", @id = "phone" } })
                             @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Register" class="btn btn-default" />
+                            <input type="submit" value="Register" class="btn btn-default" id="btnRegis" />
                         </div>
                     </div>
+                </div>
+                <div id="dialog" title="New User Id">
+                    <p id="dialogContent"></p>
                 </div>
             }
 
@@ -85,3 +88,79 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    @*var url = '/Create/AddNewEmp';
+    $.post(url,
+    null,
+    function (result) {
+        alert(result)
+        $("#dialogContent").text(result.id);
+        $("#dialog").dialog({
+            autoOpen: false, modal: true, show: "blind", hide: "blind",
+            buttons: {
+                'OK': function (){
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("UpdateEmpImage", "Create")',
+                        contentType: false,
+                        processData: false
+                    });
+                },
+                'Cancle': $(this).dialog('close')
+            }
+        });
+    }
+    $("#btnRegis").click(function () {
+        var model = {
+            full_name: $("#fullName").val(),
+            Email: $("#email").val(),
+            DOB: $("#dob").val(),
+            address: $("#address").val(),
+            posID: $('#posId :selected').text(),
+            department: $("#depart").val(),
+            phone: $("#phone").val()
+        };
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("AddNewEmp", "Create")',
+            data: JSON.stringify(model),
+            contentType: "application/json",
+            processData: false,
+            success: function (result) {
+                $("#dialog").dialog({
+                    autoOpen: false, modal: true, show: "blind", hide: "blind",
+                    buttons: {
+                        'OK': function () {
+                            $.ajax({
+                                type: "POST",
+                                url: '@Url.Action("UpdateEmpImage", "Create")',
+                                contentType: false,
+                                processData: false
+                            });
+                        },
+                        'Cancle': $(this).dialog('close')
+                    }
+                });
+            },
+            error: function (result) {
+
+            }
+        });
+    });
+
+    function callUpdateEmpImage() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("UpdateEmpImage", "Create")',
+            contentType: false,
+            processData: false,
+            success: function (result) {
+
+            },
+            error: function (result) {
+
+            }
+        });
+    };*@
+</script>
