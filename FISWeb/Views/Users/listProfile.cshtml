@@ -13,7 +13,7 @@
                 <tr colspan="5"><div class="panel-title">List manager</div></tr>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.username)
+                        @Html.DisplayNameFor(model => model.userID)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.name)
@@ -36,7 +36,7 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.username)
+                                @Html.DisplayFor(modelItem => item.userID)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.name)
@@ -51,7 +51,7 @@
                                 @Html.DisplayFor(modelItem => item.email)
                             </td>
                             <td>
-                                @Html.ActionLink("Index", "Edit", new { id = item.username })
+                                @Html.ActionLink("Index", "Edit", new { id = item.userID })
                             </td>
                         </tr>
                     }
@@ -62,7 +62,7 @@
                 <tr colspan="5"><div class="panel-title">List Employee</div></tr>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.username)
+                        @Html.DisplayNameFor(model => model.userID)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.name)
@@ -85,7 +85,7 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.username)
+                                @Html.DisplayFor(modelItem => item.userID)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.name)
@@ -100,7 +100,7 @@
                                 @Html.DisplayFor(modelItem => item.email)
                             </td>
                             <td>
-                                @Html.ActionLink("Index", "Edit", new { id = item.username })
+                                @Html.ActionLink("Index", "Edit", new { id = item.userID })
                             </td>
                         </tr>
                     }

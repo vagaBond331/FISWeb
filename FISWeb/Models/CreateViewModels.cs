@@ -1,23 +1,25 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System;
+using System.Web;
 
 namespace FISWeb.Models
 {
     public class CreateEmployeeModel
     {
-        [Required]
+        //[Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 8)]
         [Display(Name = "Username")]
         public string username { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 8)]
+        //[Required]
+        //[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 8)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string password { get; set; }
 
         [Display(Name = "Fullname")]
+        [Required]
         public string full_name { get; set; }
 
         [Required]
@@ -43,6 +45,17 @@ namespace FISWeb.Models
         [DataType(DataType.PhoneNumber)]
         [Display(Name = "Number phone")]
         public string phone { get; set; }
+    }
+
+    public class UpdateEmpImageModel
+    {
+        public HttpPostedFileBase _avatar { get; set; }
+        [Display(Name = "Fingerprint Image")]
+        public string finger_image_src { get; set; }
+        [Display(Name ="Avatar")]
+        public string avatar { get; set; }
+        [Required]
+        public string user_id { get; set; }
     }
 
     public class CreateDeviceModel

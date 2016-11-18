@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
 
 namespace FISWeb.Models
 {
@@ -53,5 +54,6 @@ namespace FISWeb.Models
 
         [Display(Name = "Fingerprint Image")]
         public string finger_image { get; set; }
+
     }
 }

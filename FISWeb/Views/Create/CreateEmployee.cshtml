@@ -8,10 +8,10 @@
         <div class="panel panel-widget">
             <div class="panel-title">Register new employee</div>
 
-            @using (Html.BeginForm("AddNewEmp", "Create", FormMethod.Post))
+            @using (Html.BeginForm("CreateEmployee", "Create", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
-
+				//@String.Join("; ", ViewData.ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage))
                 <div class="form-horizontal">
                     <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })

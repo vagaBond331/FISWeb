@@ -200,6 +200,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CreateController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\HttpRequestController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -235,7 +236,7 @@
     <Compile Include="Models\sp_helpdiagrams_Result.cs">
       <DependentUpon>FISdb.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
+    <Compile Include="Models\TempUser.cs">
       <DependentUpon>FISdb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
@@ -363,6 +364,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\HttpRequest\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
