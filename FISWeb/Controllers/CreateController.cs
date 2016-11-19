@@ -81,7 +81,7 @@ namespace FISWeb.Controllers
                 user.finger_image = model.finger_image_src;
                 if (model._avatar != null && model._avatar.ContentLength > 0)
                 {
-                    var fileName = String.Format("{0}-{1}.jpg", model.user_id,DateTime.Now.ToString("ddMMyyyHHmmss"));
+                    var fileName = String.Format("{0}-{1}.jpg", model.user_id, "avatar");
                     var path = Path.Combine(Server.MapPath(String.Format("~/Images/User/{0}", model.user_id)), fileName);
                     model._avatar.SaveAs(path);   
                 }
