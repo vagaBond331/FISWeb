@@ -111,12 +111,8 @@ namespace FISWeb.Controllers
                     Response.StatusCode = (int)HttpStatusCode.OK;
                     return new JsonResult() { Data = new { Success = true, Path = String.Format("/Images/User/{0}/{1}.bmp", userid, userid) } };
                 }
-               
             }
-            catch
-            {
-
-            }
+            catch {}
             return new JsonResult
             {
                 Data = new { Success = false },
@@ -161,7 +157,7 @@ namespace FISWeb.Controllers
 
                 ViewBag.PosList = listItems;
                 if (ModelState.IsValid)
-                    ModelState.AddModelError("", "Plz update fingerprint of the userid: " + db.TempUsers.Select(m => m.tempuser_id).FirstOrDefault() + " before add new user!");
+                    ModelState.AddModelError("", "Please update fingerprint for id : " + db.TempUsers.Select(m => m.tempuser_id).FirstOrDefault() + " before add new user!");
 
                 return View(model);
             }
@@ -182,7 +178,7 @@ namespace FISWeb.Controllers
                 int c = db.Users.Where(u => u.user_id.Contains(namei)).ToList().Count();
                 newUser.user_id = (c == 0) ? namei : namei + c;
                 //Session["regUserID"] = newUser.user_id;
-                //default passwork
+                //default password
                 newUser.password = Constants.defaultPassword;
                 tempuser.tempuser_id = newUser.user_id;
                 tempuser.descriptions = "Nothing";
@@ -200,9 +196,9 @@ namespace FISWeb.Controllers
                 db.TempUsers.Add(tempuser);
                 db.SaveChanges();
                 string pathString = Path.Combine(Server.MapPath("~/Images/User"), newUser.user_id);
-                System.IO.Directory.CreateDirectory(pathString);
+                Directory.CreateDirectory(pathString);
                 return RedirectToAction("UpdateEmpImage", "Create");
-            }catch(Exception exc)
+            }catch(Exception ex)
             {
                 return Content("Error! TODO Update Error view later");
             }

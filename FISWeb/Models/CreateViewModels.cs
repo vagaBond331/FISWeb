@@ -50,10 +50,13 @@ namespace FISWeb.Models
     public class UpdateEmpImageModel
     {
         public HttpPostedFileBase _avatar { get; set; }
+
         [Display(Name = "Fingerprint Image")]
         public string finger_image_src { get; set; }
+
         [Display(Name ="Avatar")]
         public string avatar { get; set; }
+
         [Required]
         public string user_id { get; set; }
     }

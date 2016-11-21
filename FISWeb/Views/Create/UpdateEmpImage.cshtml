@@ -1,119 +1,105 @@
 ﻿@model FISWeb.Models.UpdateEmpImageModel
 
 @{
-	ViewBag.Title = "UpdateEmpImage";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "UpdateEmpImage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="content">
-	<div class="monthly-grid">
-		<div class="panel panel-widget">
-			<div class="panel-title">Update avatar and fingerprint</div>
+    <div class="content-top">
+        @using (Html.BeginForm("UpdateEmpImage", "Create", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
 
-			@*<div id="PopupAD" title="Register done !">
-					That employee regsistered with id <span style="color:deepskyblue">@Model.user_id</span><br />
-					Now you can update avatar and fingerprint.
-				</div>*@
+            <div class="area">
+                <div class="col-md-6 chrt-two area">
+                    <h3 class="sub-tittle">Avatar</h3>
+                    <div>
+                        <div class="form-group">
+                            <div class="col-md-5 header-left">
+                                <img height="300" width="300" src="@Model.avatar" id="imgavatar" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-1">
+                                <div class="fileUpload btn btn-primary">
+                                    <span>Upload</span>
+                                    @Html.TextBoxFor(model => model._avatar, new { type = "file", id = "_avatar", @class = "upload" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-			@using (Html.BeginForm("UpdateEmpImage", "Create", FormMethod.Post, new
-			{ enctype = "multipart/form-data" }))
-			{
-				@Html.AntiForgeryToken()
-
-				<div class="form-horizontal">
-					<hr />
-					@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-					<div class="form-group">
-						@Html.LabelFor(model => model.avatar, htmlAttributes: new { @class = "control-label col-md-2" })
-
-						<div class="col-md-5 header-left">
-							<img height="300" width="300" src="@Model.avatar" id="imgavatar" />
-						</div>
-
-
-					</div>
-					<div class="form-group">
-						<div class="col-md-offset-1">
-							@Html.TextBoxFor(m => m._avatar, new { type = "file", id = "_avatar" })
-						</div>
-					</div>
-					<div class="form-group">
-						@Html.LabelFor(model => model.finger_image_src, htmlAttributes: new { @class = "control-label col-md-2" })
-						<div class="col-md-5 header-left">
-							<img height="288" width="256" src="@Model.finger_image_src" id="finger" />
-						</div>
-					</div>
-
-					<div class="form-group">
-						<div class="col-md-offset-2 col-md-10">
-							<input type="submit" value="Register" onclick="return Validate();" class="btn btn-default" />
-						</div>
-					</div>
-				</div>
-				@Html.HiddenFor(model => model.user_id)
-				@Html.Hidden("finger_image_src")
-            }
-		</div>
-	</div>
+                <div class="col-md-6 chrt-three">
+                    <h3 class="sub-tittle">Fingerprint Image</h3>
+                    <div>
+                        <div class="form-group">
+                            <div class="col-md-5 header-left">
+                                <img height="300" width="300" src="@Model.finger_image_src" id="finger" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Refresh" onclick="return Validate();" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @Html.HiddenFor(model => model.user_id)
+            @Html.Hidden("finger_image_src")
+        }
+    </div>
 </div>
 <script type="text/javascript">
 
-	function Validate() {
-		var s = $("#finger_image_src").val();
-		if (s == "" || s == "/Images/User/default.jpg") {
-			console.log("false");
-		} else if (s.includes("@Model.user_id" + ".bmp")) {
-			console.log("True");
-			return true;
-		}
-		swal("Waiting for scanning fingerprint");
-		return false;
-	}
+    function Validate() {
+        var s = $("#finger_image_src").val();
+        if (s == "" || s == "/Images/User/default.jpg") {
+            console.log("false");
+        } else if (s.includes("@Model.user_id" + ".bmp")) {
+            console.log("True");
+            return true;
+        }
+        swal("Waiting for scanning fingerprint");
+        return false;
+    }
 
-	$(document).ready(function () {
-		//$("#PopupAD").dialog({
-		//    height: 200,
-		//    width: 450,
-		//    modal: true
-		//});
+    $(document).ready(function () {
+        var scanfingerimage = function () {
+            $.ajax({
+                url: 'RequestFingerImage',
+                type: 'POST',
+                error: function (request) { },
+                success: function (data) {
+                    if (data.Success == true) {
+                        $("#finger_image_src").val(data.Path);
+                        $('#finger').attr('src', data.Path);
+                    } else {
+                        setTimeout(scanfingerimage, 5000);
+                    }
 
-		var scanfingerimage = function () {
-			$.ajax({
-				url: 'RequestFingerImage',
-				type: 'POST',
-				error: function (request) { },
-				success: function (data) {
-					if (data.Success == true) {
-						$("#finger_image_src").val(data.Path);
-						$('#finger').attr('src', data.Path);
-					} else {
-						setTimeout(scanfingerimage, 5000);
-					}
+                }
+            });
+        };
+        scanfingerimage();
+        swal("@Model.user_id was registered", "Now you can update avatar and fingerprint.")
+    });
 
-				}
-			});
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
-		};
-		scanfingerimage();
-		swal("@Model.user_id was registered", "Now you can update avatar and fingerprint.")
-	});
+            reader.onload = function (e) {
+                $('#imgavatar').attr('src', e.target.result);
+            }
 
-	function readURL(input) {
-		if (input.files && input.files[0]) {
-			var reader = new FileReader();
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 
-			reader.onload = function (e) {
-				$('#imgavatar').attr('src', e.target.result);
-			}
-
-			reader.readAsDataURL(input.files[0]);
-		}
-	}
-
-	$("#_avatar").change(function () {
-		readURL(this);
-	});
-
-
+    $("#_avatar").change(function () {
+        readURL(this);
+    });
 </script>

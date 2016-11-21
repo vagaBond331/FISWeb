@@ -261,6 +261,7 @@
     <Content Include="Content\owl.carousel.css" />
     <Content Include="Content\profile-style.css" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\style1.css" />
     <Content Include="Content\sweetalert.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
