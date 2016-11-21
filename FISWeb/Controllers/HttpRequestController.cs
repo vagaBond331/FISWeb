@@ -42,8 +42,26 @@ namespace FISWeb.Controllers
             if (!String.IsNullOrEmpty(deviceID))
             {
                 Device device = db.Devices.Find(deviceID);
-                if (device == null || device.device_status == 1) return "reg_fail";
+                if (device == null || device.device_status == 1) return "log_fail";
             }
+            try
+            {
+                //Log
+                Attent atten = new Attent()
+                {
+                    attent_device = deviceID,
+                    attent_user = userID,
+                    attent_time = DateTime.Now,
+                    attent_type = 0
+                };
+                db.Attents.Add(atten);
+                db.SaveChanges();
+            }
+            catch
+            {
+                return "log_fail";
+            }
+           
             //save LOG to DB
             return "OK";
             //return "LOG_fail";
@@ -57,6 +75,14 @@ namespace FISWeb.Controllers
             {
                 Device device = db.Devices.Find(deviceID);
                 if (device == null || device.device_status == 1) return "reg_fail";
+            }
+            try
+            {
+                //TODO - add two table
+            }
+            catch
+            {
+
             }
             //save LOG to DB
             return "OK";
