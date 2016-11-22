@@ -58,6 +58,7 @@ namespace FISWeb.Controllers
         // GET: Users
         public ActionResult Profile(string userID)
         {
+            if (Session["logUserID"] == null) return RedirectToAction("Logout", "Users");
             User logUser = new User();
             if (userID == null) logUser = db.Users.Find(Session["logUserID"]);
             else logUser = db.Users.Find(userID);

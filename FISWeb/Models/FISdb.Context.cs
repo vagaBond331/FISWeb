@@ -30,6 +30,7 @@ namespace FISWeb.Models
         public virtual DbSet<Attent> Attents { get; set; }
         public virtual DbSet<Device> Devices { get; set; }
         public virtual DbSet<Position> Positions { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TempUser> TempUsers { get; set; }
         public virtual DbSet<User> Users { get; set; }
     

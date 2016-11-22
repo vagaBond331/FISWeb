@@ -46,5 +46,6 @@ namespace FISWeb.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Position> Positions { get; set; }
         public virtual Position Position { get; set; }
+        public virtual TempUser TempUser { get; set; }
     }
 }

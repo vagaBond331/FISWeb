@@ -16,5 +16,7 @@ namespace FISWeb.Models
     {
         public string tempuser_id { get; set; }
         public string descriptions { get; set; }
+    
+        public virtual User User { get; set; }
     }
 }
