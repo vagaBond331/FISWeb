@@ -17,38 +17,39 @@ namespace FISWeb.Controllers
         public ActionResult CreateEmployee()
         {
             if (Session["logUserID"] == null) return RedirectToAction("Logout", "Users");
+            User logUser = db.Users.Find(Session["logUserID"]);
+
+            List<Position> listPos = db.Positions.ToList();
+            listPos = listPos.OrderBy(o => o.pos_type).ToList();
+
+            if (logUser.user_type == 2)
+            {
+                listPos = listPos.Where(o => o.pos_type == 3).ToList();
+            }
+
+            List<SelectListItem> listItems = new List<SelectListItem>();
+            foreach (var item in listPos)
+            {
+                switch (item.pos_type)
+                {
+                    case 1:
+                        listItems.Add(new SelectListItem { Text = item.pos_displayed + " (Admin role)", Value = item.pos_id });
+                        break;
+                    case 2:
+                        listItems.Add(new SelectListItem { Text = item.pos_displayed + " (Manager role)", Value = item.pos_id });
+                        break;
+                    case 3:
+                        listItems.Add(new SelectListItem { Text = item.pos_displayed + " (Employee role)", Value = item.pos_id });
+                        break;
+                    default: break;
+                }
+            }
+
+            ViewBag.PosList = listItems;
+
             int temp = db.TempUsers.ToList().Count;
             if (temp > 0 || !ModelState.IsValid)
             {
-                User logUser = db.Users.Find(Session["logUserID"]);
-                List<Position> listPos = db.Positions.ToList();
-                listPos = listPos.OrderBy(o => o.pos_type).ToList();
-
-                if (logUser.user_type == 2)
-                {
-                    listPos = listPos.Where(o => o.pos_type == 3).ToList();
-                }
-
-                List<SelectListItem> listItems = new List<SelectListItem>();
-                foreach (var item in listPos)
-                {
-                    switch (item.pos_type)
-                    {
-                        case 1:
-                            listItems.Add(new SelectListItem { Text = item.pos_displayed + " (Admin role)", Value = item.pos_id });
-                            break;
-                        case 2:
-                            listItems.Add(new SelectListItem { Text = item.pos_displayed + " (Manager role)", Value = item.pos_id });
-                            break;
-                        case 3:
-                            listItems.Add(new SelectListItem { Text = item.pos_displayed + " (Employee role)", Value = item.pos_id });
-                            break;
-                        default: break;
-                    }
-                }
-
-                ViewBag.PosList = listItems;
-
                 if (ModelState.IsValid)
                     ModelState.AddModelError("", "<p style='color:red'>Please update fingerprint for id : " + db.TempUsers.Select(m => m.tempuser_id).FirstOrDefault() + " before add new user!</p>"
                         + "<a href=\"@Url.Action(\"cleanTempUser\", \"Create\")\">Clear</a> or <a href=\"@Url.Action(\"Index\", \"Admin\")\">Update</a></br>");
@@ -64,7 +65,7 @@ namespace FISWeb.Controllers
             int temp = db.TempUsers.ToList().Count;
             if (temp > 0 || !ModelState.IsValid)
             {
-                CreateEmployee();
+                return CreateEmployee();
             }
 
             try
