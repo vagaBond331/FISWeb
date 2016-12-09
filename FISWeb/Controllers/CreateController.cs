@@ -52,7 +52,7 @@ namespace FISWeb.Controllers
             {
                 if (ModelState.IsValid)
                     ModelState.AddModelError("", "<p style='color:red'>Please update fingerprint for id : " + db.TempUsers.Select(m => m.tempuser_id).FirstOrDefault() + " before add new user!</p>"
-                        + "<a href=\"@Url.Action(\"cleanTempUser\", \"Create\")\">Clear</a> or <a href=\"@Url.Action(\"Index\", \"Admin\")\">Update</a></br>");
+                        + "<a style='color:red' href=\"/Create/CleanTempUser\")\">Clear</a> or <a style='color:red' href=\"/Create/UpdateEmpImage\")\">Update</a></br>");
 
             }
             return View();
@@ -206,10 +206,13 @@ namespace FISWeb.Controllers
             return RedirectToAction("Index", "Admin");
         }
 
-        public ActionResult cleanTempUser()
+        public ActionResult CleanTempUser()
         {
-            List<TempUser> list = db.TempUsers.ToList();
-            list.Remove(list[0]);
+            TempUser tp = db.TempUsers.ToList()[0];
+            User us = db.Users.Find(tp.tempuser_id);
+
+            db.Users.Remove(us);
+            db.TempUsers.Remove(tp);
             db.SaveChanges();
             return RedirectToAction("CreateEmployee", "Create");
         }

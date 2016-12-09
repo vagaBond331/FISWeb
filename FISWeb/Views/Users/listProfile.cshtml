@@ -50,7 +50,7 @@
                                 @Html.DisplayFor(modelItem => item.email)
                             </td>
                             <td>
-                                @Html.ActionLink("Index", "Edit", new { id = item.userID })
+                                <a href="@Url.Action("Profile", "Users", new {@userID = item.userID})">Index</a>
                             </td>
                         </tr>
                     }
@@ -103,7 +103,7 @@
                                 @Html.DisplayFor(modelItem => item.email)
                             </td>
                             <td>
-                                @Html.ActionLink("Index", "Edit", new { id = item.userID })
+                                <a href="@Url.Action("Profile", "Users", new {@userID = item.userID})">Index</a>
                             </td>
                         </tr>
                     }

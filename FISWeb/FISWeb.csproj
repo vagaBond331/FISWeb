@@ -256,17 +256,22 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\component.css" />
+    <Content Include="Content\demo.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\icon-font.min.css" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\login-animate-custom.css" />
     <Content Include="Content\login-style.css" />
+    <Content Include="Content\normalize.css" />
     <Content Include="Content\owl.carousel.css" />
     <Content Include="Content\profile-style.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\style1.css" />
     <Content Include="Content\sweetalert.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\BLOKKRegular.svg" />
+    <Content Include="fonts\codropsicons.svg" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\fontomas-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -325,6 +330,12 @@
     <Content Include="Models\FISdb.edmx.diagram">
       <DependentUpon>FISdb.edmx</DependentUpon>
     </Content>
+    <Content Include="fonts\BLOKKRegular.eot" />
+    <Content Include="fonts\BLOKKRegular.ttf" />
+    <Content Include="fonts\BLOKKRegular.woff" />
+    <Content Include="fonts\codropsicons.eot" />
+    <Content Include="fonts\codropsicons.ttf" />
+    <Content Include="fonts\codropsicons.woff" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\easing.js" />
     <Content Include="Scripts\easyResponsiveTabs.js" />
@@ -333,7 +344,9 @@
     <Content Include="Scripts\jquery-ui-themes-1.12.1.zip" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery.ba-throttle-debounce.min.js" />
     <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\jquery.stickyheader.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -368,10 +381,10 @@
     <Content Include="Views\Employee\Index.cshtml" />
     <Content Include="Views\Users\listProfile.cshtml" />
     <Content Include="Views\Create\UpdateEmpImage.cshtml" />
+    <Content Include="Views\Admin\ExportLOGPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\HttpRequest\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

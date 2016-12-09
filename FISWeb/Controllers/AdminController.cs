@@ -28,7 +28,10 @@ namespace FISWeb.Controllers
             }
             model.listDevice = db.Devices.ToList();
 
-            foreach (var item in db.Attents)
+            List<Attent> atList = db.Attents.OrderBy(t => t.attent_time).ToList();
+            atList = Enumerable.Reverse(atList).Take(5).ToList();
+
+            foreach (var item in atList)
             {
                 AttendViewModel at = new AttendViewModel();
                 User us = db.Users.Find(item.attent_user);
@@ -76,5 +79,22 @@ namespace FISWeb.Controllers
 
             return RedirectToAction("Index", "Admin");
         }
+
+        public ActionResult ExportLOGPage()
+        {
+            if (Session["logUserID"] == null) return RedirectToAction("Logout", "Users");
+            return View();
+        }
+        public FileContentResult ExportCSV(ExportLOGModel model)
+        {
+            List<Attent> atList = db.Attents.Where(t => (t.attent_time >= model.startDate && t.attent_time <= model.endDate)).ToList();
+            String csv = "ID,Name,Time,Location";
+            foreach (var item in atList)
+            {
+                csv += Environment.NewLine + item.attent_user + "," + CreateController.RemoveVietnamese(db.Users.Find(item.attent_user).full_name) + "," + item.attent_time + "," + item.attent_device;
+            }
+            return File(new System.Text.UTF8Encoding().GetBytes(csv), "text/csv", "Report.csv");
+        }
+
     }
 }

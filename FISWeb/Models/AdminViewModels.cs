@@ -36,4 +36,17 @@ namespace FISWeb.Models
         public string location;
         public DateTime log_time;
     }
+
+    public class ExportLOGModel
+    {
+        [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = "Start Date")]
+        public Nullable<System.DateTime> startDate { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = "End Date")]
+        public Nullable<System.DateTime> endDate { get; set; }
+    }
 }
